@@ -1,0 +1,2037 @@
+package pkgNutricion;
+import static pkgNutricion.Validacion.*;
+import java.util.Scanner;
+public class AppNutricionista 
+{
+      Cliente objC = new Cliente();
+      //Cliente obj;
+      static Archivo objArchivo = new Archivo();
+      static CRUDCliente crudC = new CRUDCliente();
+       static Scanner sc = new Scanner(System.in);
+      
+    public static void main(String[] args) 
+    {
+     menuPrincipal();
+    }
+    // se crea un menu principal que permite ingresar a cada menu de cliente, nutricionista o centro de salud
+    public static void menuPrincipal()
+    {
+     Scanner sc = new Scanner(System.in);
+     int op = 0;
+     do // se ejecuta ciclo para retornar al menu de centro de consulta
+      {
+       System.out.println("*****Centro de Consulta *******");
+       System.out.println("1- Menu Archivos ");
+       System.out.println("2- Menu Pilas ");
+       System.out.println("3- Menu Colas ");
+       System.out.println("4- Salir");
+       op = sc.nextInt();   
+       switch(op)
+       {
+           case 1: 
+               int swArchivos;
+               
+                 do
+                 {
+                  swArchivos = leerEntero(menuArchivos());    
+                  switch(swArchivos)
+                   {
+                      case 1:
+                          menuArchivoCliente();
+                          break;
+                      case 2:
+                          menuArchivoNutricionista();
+                          break;
+                      case 3: 
+                          menuArchivoCentro();
+                          break;
+                    }
+                  }while(swArchivos<4);
+               break;
+           case 2:
+               int swPilas;
+               
+                 do
+                 {
+                  swPilas = leerEntero(menuPilas());    
+                  switch(swPilas)
+                   {
+                      case 1:
+                          menuPilasCliente();
+                          break;
+                      case 2:
+                          menuPilasNutricionista();
+                          break;
+                      case 3: 
+                          menuPilasCentro();
+                          break;
+                    }
+                  }while(swPilas<4);
+               break;
+            case 3:
+               int swColas;
+               
+                 do
+                 {
+                  swColas = leerEntero(menuColas());    
+                  switch(swColas)
+                   {
+                      case 1:
+                          menuColaCliente();
+                          break;
+                      case 2:
+                          menuColaNutricionista();
+                          break;
+                      case 3: 
+                          menuColaCentro();
+                          break;
+                    }
+                  }while(swColas<4);
+               break;
+           default:
+               System.out.println("**** opción seleccionada no existe *****");
+       }
+       System.out.println("Desea retornar al menu principal para realizar otra consulta :");
+       op = sc.nextInt();
+      }while(op<=3 && op>=1);  
+    }
+    
+    public static void menuArchivoCliente()
+    {
+        
+        int opC, idCliente;
+     do
+                {
+                 opC= leerEntero(menuArchivoC());
+                  switch(opC)
+                   {
+                     case 1:
+                        System.out.println("*******************************************\n");
+                        idCliente = leerEntero("Digite el ID del cliente a registrar: ");
+                        crudC.IngresarCliente(objArchivo, idCliente);
+                        break;
+                     case 2: 
+                        System.out.println("*******************************************\n");
+                            System.out.println("Los Registros del Archivo Cliente son: \n"+crudC.Mostrar(objArchivo));
+                        break;
+                     case 3: 
+                          System.out.println("*******************************************\n");
+                          idCliente = leerEntero("Digite el IDCliente del cliente a consultar: ");
+                          System.out.println("El cliente consultado es: "+crudC.Consultar(objArchivo,idCliente));
+                        break;
+                     case 4: 
+                        System.out.println("*******************************************\n");
+                        idCliente = leerEntero("Digite el IDCliente del cliente a eliminar: ");
+                        System.out.println("El registro a Eliminar es: \n"+crudC.Eliminar(objArchivo, idCliente));                                 
+                        break;
+                     case 5: 
+                        System.out.println("*******************************************\n");
+                        idCliente = leerEntero("Digite el IDCliente del cliente a Actualizar: ");
+                        crudC.Actualizar(objArchivo, idCliente); 
+                        break;
+                     case 6: 
+                        System.out.println("*******************************************\n");
+                        System.out.println("Ingrese el nuevo nombre del archivo: ");
+                        String nom = sc.nextLine();
+                        objArchivo.renombrarArchivo(nom+".txt");
+                        break; 
+                     case 7:
+                        objArchivo.eliminaArchivo("Clientes.txt");
+                         break;
+                    }
+                   }while(opC<7); 
+     
+    }          
+     public static void menuArchivoNutricionista()
+     {
+      
+     }
+    
+     public static void menuArchivoCentro()
+     {
+       
+     } 
+     public static void menuPilasCliente()
+     {
+      
+     }          
+     public static void menuPilasNutricionista()
+     {
+      
+     }
+    
+     public static void menuPilasCentro()
+     {
+       
+     } 
+     public static void menuColaCliente()
+     {
+      
+     }          
+     public static void menuColaNutricionista()
+     {
+      
+     }
+    
+     public static void menuColaCentro()
+     {
+       
+     } 
+     public static String menuArchivos()
+     {
+        return (" **** MENU PRINCIPAL ARCHIVOS \n"
+                           + "1. Manejo de Archivo Cliente\n"
+                           + "2. Manejo de Archivo Nutricionista\n"
+                    	   + "3. Manejo de Archivo Centro\n"
+                           + "4. Terminar \n");
+     }
+     
+    public static String menuArchivoC()
+      {
+        return (" **** MENU ARCHIVO CLIENTE ****\n"
+                           + "1. Ingresar Cliente\n"
+                           + "2. Imprimir todo el Archivo\n"
+                    	   + "3. Consultar Cliente\n"
+                           + "4. Eliminar un Cliente\n"
+                           + "5. actualizar un Cliente\n"
+                           + "6. Cambiar nombre al archivo\n"
+			   + "7. Eliminar un archivo\n"
+			   + "8. Finalizar Menu\n");
+    
+     }
+    
+     public static String menuPilas()
+     {
+        return (" MENU PRINCIPAL PILA\n"
+                           + "1. Manejo de Pila Cliente\n"
+                           + "2. Manejo de Pila Nutricionista\n"
+                    	   + "3. Manejo de Pila Centro\n"
+                           + "4. Terminar \n");
+     }
+     
+     public static String menuColas()
+     {
+        return (" MENU PRINCIPAL COLA\n"
+                           + "1. Manejo de Cola Cliente\n"
+                           + "2. Manejo de Cola Nutricionista\n"
+                    	   + "3. Manejo de Cola Centro\n"
+                           + "4. Terminar \n");
+     }
+    
+}
+
+
+
+package pkgNutricion;
+
+import java.io.*;
+import java.util.*;
+import java.util.regex.Pattern;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+//import java.util.regex.Pattern;
+
+public class Archivo 
+{
+    Scanner sc = new Scanner(System.in);
+    File archivo;//archivo logico
+    FileReader lectura;//objeto para modo lectura del archivo
+    BufferedReader buffer;//objeto que reserva un espacio en memoria donde se guarda la informacion
+    BufferedWriter bufferW;
+    BufferedReader bufferNEW;
+    FileWriter escritura;//objeto para modo escritura del archivo
+    PrintWriter impresion;//objeto para grabar directamente en el texto
+   
+    
+   public String escribir(String registro)//graba el texto se dice que lo imprime en el archivo
+    {
+        String mensaje="grabará un registro";
+        
+        try
+        {  
+            impresion.println(registro);
+           // impresion.println(); 
+           //buffer.close();
+         }
+        catch(Exception objException)
+         {
+           mensaje = objException.getMessage(); 
+         } 
+        
+        return mensaje;
+    }
+    
+  /*  public Nutricionista[] leerNutricionista()
+    {
+        
+    }
+    
+    public Centro[] leerCentro()
+    {
+        
+    } */
+    public Cliente[] leerCliente()
+    {
+        //Cliente objC = new Cliente();
+        int cl = contadorLineas("DatosClientes.txt");
+        Cliente vecC[];
+        vecC = new Cliente[cl];
+        String registro;
+        String vec[];
+        double[] peso = new double[3];
+        vec = new String[11];
+        
+       try
+        {
+           int i =0;
+            while(cl>0)
+            {
+              registro = buffer.readLine();
+              String separador = Pattern.quote("|");
+              vec = registro.split(separador);
+               int idCliente = Integer.parseInt(vec[0]);
+               String nombre = vec[1];
+               int edad = Integer.parseInt(vec[2]);
+               int codCentro = Integer.parseInt(vec[3]);
+               String idNutricionista = vec[4];
+               double estatura = Double.parseDouble(vec[6]);
+               String estado = vec[7];
+               int estrato = Integer.parseInt(vec[5]);//se toma en todas las variables auxiliares la informacion de la linea de texto
+               double pago = Double.parseDouble(vec[8]);
+               int k=8+1;
+               for(int j= 0; j < peso.length ;j++)
+               {
+                peso[j]= Double.parseDouble(vec[k]);
+                k++;
+               }
+               Cliente objC = new Cliente(idCliente, nombre, edad, codCentro, idNutricionista, estatura, estado, estrato, pago, peso);
+               vecC[i] = objC;
+               i++;
+               cl--;  
+            }
+            /*registro = buffer.readLine();
+            String separador = Pattern.quote("|");
+            vec = registro.split(separador);//split(",");*/
+         buffer.close();   
+        }
+        catch(Exception objException)
+        {
+         objException.getMessage();          
+        }
+        return vecC;
+    }
+    
+    public Nutricionista[] leerNutricionista()
+    {
+        //Cliente objC = new Cliente();
+        int cl = contadorLineas("DatosNutricionista.txt");
+        Nutricionista vecN[];
+        vecN = new Nutricionista[cl];
+        String registro;
+        String vec[];
+        vec = new String[9];
+        
+       try
+        {
+           int i =0;
+            while(cl>0)
+            {
+              registro = buffer.readLine();
+              String separador = Pattern.quote("|");
+              vec = registro.split(separador);
+               String codNutricionista = vec[0];
+               String nombre = vec[1];
+               int edad = Integer.parseInt(vec[2]);
+               int codCentro = Integer.parseInt(vec[3]);
+               int añosExp = Integer.parseInt(vec[4]);
+               double salBase = Double.parseDouble(vec[5]);
+               double incentivo = Double.parseDouble(vec[6]);
+               double salarioNeto = Double.parseDouble(vec[7]);
+               String tel = vec[8];
+               Nutricionista objN = new Nutricionista(codNutricionista, nombre, edad, añosExp,codCentro, salBase,incentivo, salarioNeto, tel);
+               vecN[i] = objN;
+               i++;
+               cl--;  
+            }
+            /*registro = buffer.readLine();
+            String separador = Pattern.quote("|");
+            vec = registro.split(separador);//split(",");*/
+         buffer.close();   
+        }
+        catch(Exception objException)
+        {
+         objException.getMessage();          
+        }
+        return vecN;
+    }
+    
+   public String abrirModoLectura(String ruta)
+    {
+        String mensaje = "El archivo esta en  **Modo lectura**";
+        try{
+            archivo = new File(ruta);
+            lectura = new FileReader(archivo);
+            buffer  = new BufferedReader(lectura);
+        }
+        catch(Exception objException)
+         {
+            mensaje = objException.getMessage();          
+         }
+         return mensaje;
+    }
+    
+    public String cerrarModoLectura()
+    {
+        String mensaje="¡El archivo en Modo lectura se cierra";
+        try
+        {
+         lectura.close();
+        // buffer.close();
+        }
+        catch(Exception objException)
+         {
+            mensaje = objException.getMessage();          
+         }
+        return mensaje;
+    }
+        
+    public String abrirModoEscritura(String ruta)
+    {
+        String mensaje="¡El archivo se abrirá de Modo escritura!";
+        try{
+            archivo = new File(ruta);
+            escritura= new FileWriter(archivo,true);
+            impresion = new PrintWriter(escritura);
+        }
+        catch(Exception objException)
+        {
+         mensaje = objException.getMessage();          
+        }
+        System.out.println("mensaje método abrirModoEscritura: "+mensaje);
+        return mensaje;
+    }
+    
+    public String cerrarModoEscritura()
+    {
+        String mensaje="¡El archivo en **Modo escritura** se cierra!";
+        try
+         {
+          impresion.close();
+          buffer.close();
+         }
+        catch(Exception objException)
+        {
+          mensaje = objException.getMessage();          
+        }
+        return mensaje;
+    }
+
+    public boolean eliminaArchivo(String ruta)
+    {
+       System.out.println("cual es el valor de Ruta:"+ruta);
+       try
+       { 
+         archivo = new File(ruta);
+         if(archivo.exists())
+          {
+           //impresion.close();
+           //lectura.close();
+           System.out.println("****Archivo Eliminado****");
+           System.out.println("****: "+archivo.getAbsolutePath());
+           archivo.delete();
+           archivo.deleteOnExit();
+           return true;
+          }  
+          else 
+           {
+            return false;
+           }
+       }catch(Exception e)
+        { 
+            System.out.println("ERROR: " + e.getMessage());
+             return false;
+        }
+}
+          
+   public int contadorLineas(String arch)
+    {
+      int numLineas=0;
+      
+      try
+      {
+       archivo = new File(arch);
+       if(archivo.isFile()== false)
+       {
+         return 0;  
+       }
+       else
+        {
+       lectura = new FileReader(arch);
+       BufferedReader br = new BufferedReader(lectura);
+       
+        while (br.readLine()!=null) 
+          {
+            numLineas++;
+          }
+        br.close();
+        return numLineas;
+       }
+      }
+      catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+      return numLineas;
+    }
+     
+   
+   public void renombrarArchivo( String nuevoNombre)
+    {
+      try
+      {
+        String nombreActual = "DatosClientes.txt";
+        File oldfile = new File(nombreActual);
+        File newfile = new File(nuevoNombre);
+         if (oldfile.renameTo(newfile)) 
+        {
+            System.out.println("El archivo fue renombrado");
+        } else {
+            System.out.println("no se puede renombrar el archivo");
+        }
+        //newfile.renameTo(oldfile);
+        
+      }catch(Exception e)
+       {
+        System.out.println("***Archivo leído y cerrado correctamente*****"); 
+       }
+    }
+}
+    
+
+
+package pkgNutricion;
+
+public class CRUDCentro 
+{
+    
+}
+
+
+
+
+package pkgNutricion;
+import static pkgNutricion.Validacion.*;
+//import static eps.fv.Validaciones.*;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class CRUDCliente 
+{ 
+  public CRUDCliente()
+   {
+
+   }    
+  /* Crear el archivo e ingresar un cliente*/
+  public void IngresarCliente(Archivo objArchivo, int idCliente) 
+     {   
+         Cliente objC = new Cliente();
+         if(Buscar(objArchivo,idCliente) == false)//si no lo encuentra
+         {
+             objC = objC.datosCliente(idCliente);//lee toda la informacion y recibe el objeto
+	     Grabar(objArchivo,objC);  //metodo que graba fisicamente el registro en memoria
+         }else{
+                 System.out.println("*****Cliente YA existe en el archivo*****");
+         }//Fin if 
+      }//fin  de ingresar Cliente
+   
+  /* Guardar el resgistro del Cliente*/
+   public void Grabar(Archivo objArchivos, Cliente objC ) 
+    {
+        String texto = "";
+        objArchivos.abrirModoEscritura("DatosClientes.txt");
+        texto = objC.estructuraRegistro();//con este metodo se da la estructura al registro
+        objArchivos.escribir(texto); //se graba o escribe o imprime el registro fisicamente en el archivo
+        objArchivos.cerrarModoEscritura();
+     }//fin  Grabar Cliente
+    
+   /* Leer archivo de cliente y actualizar un dato del mismo*/
+    public void grabarActualizacion(Cliente[] vecC, Archivo objArchCopy) 
+     {   
+        Cliente objC;
+        objArchCopy.cerrarModoLectura(); // se cierra el archivo que se encuentra en modo lectura
+        objArchCopy.eliminaArchivo("DatosClientes.txt"); // se elimina el archivo original
+        for(int i = 0; i<vecC.length;i++)
+        {
+         objArchCopy.abrirModoEscritura("DatosClientes.txt");
+         objC = vecC[i];
+         String texto = "";
+         texto = objC.estructuraRegistro();//con este metodo se da la estructura al registro
+         objArchCopy.escribir(texto); //se graba o escribe o imprime el registro fisicamente en el archivo 
+         objArchCopy.cerrarModoEscritura();
+        }
+        
+    } //fin  Grabar Actualización del Cliente    */
+    
+    /* imprimir el archivo de cliente */ 
+    public String Mostrar(Archivo objArch) 
+    { 
+        String cadena="";//cadena para el almacenamiento de todos los registros
+        Cliente objC;
+        //int tamaño;
+        try {
+             int cantRegistros = objArch.contadorLineas("DatosClientes.txt");
+             //tamaño = objArch.contadorLineas("DatosClientes.txt");
+             Cliente vecC[] = new Cliente[cantRegistros];
+             objArch.abrirModoLectura("DatosClientes.txt");
+           
+            vecC = objArch.leerCliente();//retorna el vector tipo objeto y se le asigna al definido en esta clase
+            int i =0;
+            //int cantRegistros = objArch.contadorLineas("DatosClientes.txt");
+            while (i<=cantRegistros)//mientras no llegue hasta la última línea del archivo
+            {
+              objC = vecC[i];
+              cadena=cadena+"[ "+objC.toString()+" ]\n";//se anexan cada registro a la cadena
+              i++;
+            }//fin mientras */
+            objArch.cerrarModoLectura();
+            
+        } catch (Exception e)
+        {
+             System.out.println("***Archivo leído y cerrado correctamente*****");
+        }
+        return cadena;
+    }//fin de método mostrar 
+ 
+    /* Permite la busqueda de un cliente y mostrar sus datos*/
+public String Consultar(Archivo objArch,int idCliente) 
+    {    
+        String cadena="";
+        int ni;
+        try 
+        {
+           int tamaño = objArch.contadorLineas("DatosClientes.txt");
+           Cliente vecC[] = new Cliente[tamaño];
+           Cliente objC = new Cliente();
+           objArch.abrirModoLectura("DatosClientes.txt");
+           vecC = objArch.leerCliente();//retorna el vector tipo objeto y se le asigna al vector definido en esta clase
+            int i =0;
+            int cantRegistros = objArch.contadorLineas("DatosClientes.txt");
+            while (i<=cantRegistros) //mientras no llegue hasta la última línea del archivo
+            {
+              objC = vecC[i];
+              ni = objC.getIdCliente();
+              if(ni==idCliente)
+                {
+                  cadena=cadena+"[ "+objC.toString()+" ]\n";  
+                  System.out.println("El Cliente es:\n " + cadena);
+                }
+              i++;
+            }//fin mientras */
+             objArch.cerrarModoLectura();
+        }catch (Exception e)
+        {
+             System.out.println( "***Archivo leído y cerrado correctamente*****");
+        }
+        
+        if (cadena.equals(""))
+        {
+            return cadena = "NO SE ENCONTRÓ EL Cliente";
+        }
+        return cadena;
+    }
+
+/*OJO este metodo solo retorna falso o verdadero en caso de encontrar el idCliente del 
+Centro de Nutrición que estamos buscando NO DEJA NINGUNA MARCA O APUNTADOR EN EL REGISTRO
+solo averigua si el hospital esta o no en el archivo*/
+    
+public boolean Buscar(Archivo objArch, int idCliente) 
+    { 
+        boolean sw=false;
+        int ni;
+        try {
+            Cliente objC = new Cliente();
+            int tamaño = objArch.contadorLineas("DatosClientes.txt");
+            objArch.abrirModoLectura("Datosclientes.txt");
+            Cliente vecC[] = new Cliente[tamaño];
+            vecC = objArch.leerCliente();//retorna el vector tipo objeto y se le asigna al vector definido en esta clase
+            int i=0;
+            int cantRegistros = objArch.contadorLineas("DatosClientes.txt");
+            while (i<= cantRegistros) 
+            {
+               objC = vecC[i];
+               ni = objC.getIdCliente();
+               if(ni == idCliente)
+                {
+                    sw=true;
+                    break;
+                }
+               
+                i++;
+            }//fin mientras
+            objArch.cerrarModoLectura();
+
+        } catch (Exception e)
+        {
+             System.out.println("***Archivo leido y cerrado correctamente*****");
+        }
+        return sw;
+        
+    }//fin de buscar*/
+
+/* método que permite la actualización del estado en el archivo, cuando
+ se actualiza el peso o la estatura en el archivo
+*/
+public String actualizacionEstado(double estatura, double peso)
+{   
+      String estado;
+      double imc = peso / (estatura * estatura);
+        if (imc < 18.5) 
+        {
+            estado = "Bajo peso";
+        } 
+        else if (imc < 25) 
+        {
+            estado = "Peso normal";
+        } 
+        else if (imc < 30) 
+        {
+            estado = "Sobrepeso";
+        } 
+        else 
+        {
+            estado = "Obesidad";
+        }
+    return estado;
+}
+/* este método permite actualizar el pago del cliente cuando
+se actualiza su estrato social en el archivo
+*/
+public double actualizacionPago(int estrato)
+{   
+    double pago = 0;
+    switch (estrato) 
+    {
+      case 1:
+      case 2:
+          pago = 50000;
+          break;
+      case 3:
+      case 4:
+          pago = 70000;
+          break;
+      case 5:
+          pago = 80000;
+          break;
+      case 6:
+          pago = 100000;
+          break;
+      default:
+          System.out.println("Estrato no válido ");
+    }
+return pago;
+}
+
+/*
+Este método permite la actualización de una o todas las posiciones del 
+vector peso
+*/
+public double[] actualizacionSeguimientoPeso(double[] peso)
+{
+  Scanner sc = new Scanner(System.in);  
+  int op = 0;
+  int pos;
+  System.out.println("1. Actualización de todos los pesos ");
+  System.out.println("2. Actualización de uno de los pesos almacenados ");
+  op = sc.nextInt();
+   switch(op)
+   {
+       case 1:
+          for(int i = 0; i<peso.length;i++)
+          {
+           peso[i] = leerPeso("ingrese el peso del cliente en el mes " + (i+1));   
+          } 
+          break;
+       case 2:
+          do
+          {
+           System.out.println("Seleccione la posición que desea actualizar [0-2]");   
+           pos = sc.nextInt();     
+           if(pos<3)
+           {
+            peso[pos] = leerPeso("ingrese el peso del cliente en el mes " + (pos+1));    
+           }   
+          }while(pos>=3);
+       default:
+           System.out.println("Selecciono una opcion no valida, se mantendran los valores que ya se encuentran almacenados");
+   }       
+ return peso;       
+}   
+  
+/* Método que permite actualizar un registro dentro del archivo */
+public void Actualizar(Archivo objArchivos, int idCliente)
+{
+    int idCli, edad, codCentro, estrato; 
+    double estatura,pago;
+    double[] peso = new double[3];
+    String nombre, idNutricionista, estado;
+    objArchivos.abrirModoLectura("DatosClientes.txt");
+    int op;
+    if(objArchivos.archivo.exists()== true)
+    {
+     int cantLineas = objArchivos.contadorLineas("DatosClientes.txt");
+     Cliente vecC[] = new Cliente[cantLineas];
+     try
+      {
+       boolean sw = false;
+       int regV = 0;
+       Cliente objC = new Cliente();
+       vecC = objArchivos.leerCliente();//Almacenamos cada registro del archivo en un vector tipo hospital
+       int i =0;
+       while (i < cantLineas) 
+        {
+         objC = vecC[i]; 
+         idCli = objC.getIdCliente();
+         nombre = objC.getNombre();
+         edad = objC.getEdad();
+         codCentro = objC.getCodCentro();
+         idNutricionista= objC.getIdNutricionista(); //ok
+         estatura = objC.getEstatura();
+         estrato = objC.getEstrato();
+         peso = objC.getPeso();
+         pago = objC.getPago();
+         estado = objC.getEstado();
+        if(idCli == idCliente)
+         {
+          sw = true;
+          System.out.println("Se actualizará el registro cuyo idCliente es: "+idCli);
+          do
+           {
+            op = leerEntero(" 1. Nombre, 2. edad , 3.codCentro, 4. idNutricionista, 5. Estatura, 6. peso, 7. Estrato");
+            switch(op)
+             {
+              case 1:
+               nombre = leerString("Ingrese el nuevo nombre del Cliente: ");
+               break;
+              case 2:
+               edad= leerEdad("Ingrese el nuevo Estrato Social del Cliente: ");
+               break;
+              case 3:
+               codCentro = leerEntero("Ingrese el nuevo código del centro asignado al Cliente: ");
+               break;
+              case 4:
+                idNutricionista = leerIdNutricionista("Ingrese el núevo código del nutricionista asignado al Cliente: ");
+                break;
+              case 5:
+               estatura = leerEstatura("Ingrese la nueva estatura que se le asignará al cliente: ");
+               System.out.println("Esta actualización implica un cambio en su estado ");
+               estado  = actualizacionEstado(estatura, peso[2]);
+               break;
+              case 6: 
+                peso = actualizacionSeguimientoPeso(peso);
+                System.out.println("Esta actualización implica un cambio en su estado ");
+                estado  = actualizacionEstado(estatura, peso[2]);
+                break;
+              case 7:
+                estrato= leerEstrato("Ingrese el nuevo Estrato Social del cliente: "); 
+                System.out.println("Esta actualización implica un cambio en el valor del pago por parte del cliente ");
+                pago = actualizacionPago(estrato);
+                break;
+             } 
+           }while(op<8);
+          objC = new Cliente(idCliente,nombre, edad, codCentro, idNutricionista, estatura,estado,estrato,pago,peso);
+          vecC[i]= objC;
+          System.out.println(" registro actualizado"+ objC.toString());
+        }
+        else
+         {
+          vecC[i]= objC;
+         }
+         i++;
+        }
+       if(sw ==false)
+        {
+          System.out.println("El Cliente No existe");
+        }  
+     objArchivos.cerrarModoLectura();
+     }catch (Exception e)
+      {
+       System.out.println("***Archivo leido y cerrado correctamente*****");
+       objArchivos.cerrarModoLectura();
+      }
+     grabarActualizacion(vecC, objArchivos);
+    }
+  else 
+   {
+    System.out.println("No existe un archivo para actualizar");
+   }
+ 
+ }
+
+/* método que permite Eliminar el archivo del cliente*/
+public String Eliminar(Archivo objArchivos, int idCli)
+{
+    int ni;
+    String cadena ="";
+    objArchivos.abrirModoLectura("DatosClientes.txt");
+    int op;
+    if(objArchivos.archivo.exists()== true)
+     {
+      int cantLineas = objArchivos.contadorLineas("DatosClientes.txt");
+    
+     try
+      {
+       boolean sw = false;
+       Cliente objC = new Cliente();
+       Cliente vecC[] = new Cliente[cantLineas];
+       vecC = objArchivos.leerCliente();//Almacenamos cada registro del archivo en un vector tipo Cliente
+       int i =0, cont = 0;
+       while (i < cantLineas) 
+        {
+         objC = vecC[i]; 
+         ni = objC.getIdCliente();
+         if(ni!= idCli) //(!ni.equals(idCli)) esto para cuando se comparan dos cadenas de caracteres 
+         {
+          cont +=1;
+         }
+         i++;
+        }
+       Cliente vecReg[];
+       vecReg = new Cliente[cont];
+      
+       if (cont == 0)
+         {
+          cadena = "No hay registro a imprimir";
+         }
+       else 
+        {
+         i = 0;
+         int c = 0;
+         while (i < cantLineas)
+          {
+           objC = vecC[i]; 
+           ni = objC.getIdCliente();
+           if(ni!= idCli)//(!ni.equals(nt))
+           {
+            vecReg[c]= objC;
+            System.out.println("***vector en la posición *****"+ vecReg[c].toString());
+            c=c+1;
+            sw = true;
+           }
+           else
+            {
+             cadena = cadena+"[ "+objC.toString()+" ]\n"; 
+            }
+           i++;
+          }
+         grabarActualizacion(vecReg,objArchivos);
+         }
+      objArchivos.cerrarModoEscritura();
+     }catch (Exception e)
+      {
+       System.out.println("***Archivo leido y cerrado correctamente*****");
+       objArchivos.cerrarModoEscritura();
+      }
+    }
+  else 
+   {
+    System.out.println("No existe un archivo en el cual se pueda eliminar el regisro");
+   }
+  return cadena;
+ }
+  	    
+   
+}
+
+
+
+package pkgNutricion;
+import static pkgNutricion.Validacion.*;
+//import static eps.fv.Validaciones.*;
+import java.util.Arrays;
+import java.util.Scanner;
+
+/* 
+en base al CRUD Cliente, crea los siguientes métodos en el CRUDNutricionista
+ - eliminar 
+ - mostrar
+ - consultar
+*/
+
+
+public class CRUDNutricion 
+{
+ public CRUDNutricion()
+ {
+     
+ }
+ public void IngresarNutricionista(Archivo objArchivo, String codNutricionista) 
+     {   
+         Nutricionista objN = new Nutricionista();
+         if(Buscar(objArchivo,codNutricionista) == false)//si no lo encuentra
+         {
+             objN = objN.datosNutricionista(codNutricionista);//lee toda la informacion y recibe el objeto
+	     Grabar(objArchivo,objN);  //metodo que graba fisicamente el registro en memoria
+         }else{
+                 System.out.println("*****Cliente YA existe en el archivo*****");
+         }//Fin if 
+      }//fin  de ingresar Cliente
+    
+  public void Grabar(Archivo objArchivos, Nutricionista objN ) 
+    {
+        String texto = "";
+        objArchivos.abrirModoEscritura("DatosClientes.txt");
+        texto = objN.estructuraRegistro();//con este metodo se da la estructura al registro
+        objArchivos.escribir(texto); //se graba o escribe o imprime el registro fisicamente en el archivo
+        objArchivos.cerrarModoEscritura();
+     }//fin  Grabar Cliente
+  
+  public boolean Buscar(Archivo objArch, String codNutricionista) 
+    { 
+        boolean sw=false;
+        String ni;
+        try {
+            Nutricionista objN = new Nutricionista();
+            int tamaño = objArch.contadorLineas("DatosNutricionista.txt");
+            objArch.abrirModoLectura("DatosNutricionista.txt");
+            Nutricionista vecN[] = new Nutricionista[tamaño];
+            vecN = objArch.leerNutricionista();//retorna el vector tipo objeto y se le asigna al vector definido en esta clase
+            int i=0;
+            int cantRegistros = objArch.contadorLineas("DatosClientes.txt");
+            while (i<= cantRegistros) 
+            {
+               objN = vecN[i];
+               ni = objN.getCodNutricionista();
+               if(ni.equals(codNutricionista))
+                {
+                    sw=true;
+                    break;
+                }
+               
+                i++;
+            }//fin mientras
+            objArch.cerrarModoLectura();
+
+        } catch (Exception e)
+        {
+             System.out.println("***Archivo leido y cerrado correctamente*****");
+        }
+        return sw;
+        
+    }//fin de buscar*/
+  public void Actualizar(Archivo objArchivos, String codNutri)
+{
+    double salBase, incentivo, salarioNeto;
+    String nombre, codNutricionista;
+    int añosExp, edad, codCentro;
+    String tel;
+    objArchivos.abrirModoLectura("DatosNutricionista.txt");
+    int op;
+    if(objArchivos.archivo.exists()== true)
+    {
+     int cantLineas = objArchivos.contadorLineas("DatosNutricionista.txt");
+     Nutricionista vecN[] = new Nutricionista[cantLineas];
+     try
+      {
+       boolean sw = false;
+       int regV = 0;
+       Nutricionista objN = new Nutricionista();
+       vecN = objArchivos.leerNutricionista();//Almacenamos cada registro del archivo en un vector tipo hospital
+       int i =0;
+       while (i < cantLineas) 
+        {
+         objN = vecN[i]; 
+         codNutricionista = objN.getCodNutricionista();
+         nombre = objN.getNombre();
+         edad = objN.getEdad();
+         añosExp = objN.getAñosExp();
+         codCentro = objN.getCodCentro();
+         salBase = objN.getSalBase(); //ok
+         incentivo = objN.getIncentivo();
+         salarioNeto = objN.getSalarioNeto();
+         tel = objN.getTel();
+        if(codNutri.equals(codNutricionista))
+         {
+          sw = true;
+          System.out.println("Se actualizará el registro cuyo Nutricionista es: "+codNutri);
+          do
+           {
+            op = leerEntero(" 1. Nombre, 2. edad , 3.codCentro, 4. años de Experiencia, 5. salBase, 6. tel, 7 Salir");
+            switch(op)
+             {
+              case 1:
+               nombre = leerString("Ingrese el nuevo nombre del Nutricionista: ");
+               break;
+              case 2:
+               edad= leerEdad("Ingrese la nueva edad del nutricionista: ");
+               break;
+              case 3:
+               codCentro = leerEntero("Ingrese el nuevo código del centro asignado al Cliente: ");
+               break;
+              case 4:
+                añosExp = leerEntero("Ingrese el nuevo valor para los años de experiencia ");
+                System.out.println("Esta actualización implica un cambio en los incentivos y en el Salario Neto ");
+                incentivo = actualizaciónIncentivos(añosExp);
+                salarioNeto = actualizacionSalarioNeto(incentivo, salBase);
+                break;
+              case 5:
+               salBase = leerSalarioBase("Ingrese la nueva estatura que se le asignará al cliente: ");
+               System.out.println("Esta actualización implica un cambio en el salario neto ");
+               salarioNeto = actualizacionSalarioNeto(incentivo, salBase);
+               break;
+              case 6: 
+                tel = leerTelefono("Ingrese el nuevo telefono del Nutricionista");
+                break;
+             } 
+           }while(op<7);
+          objN = new Nutricionista(codNutricionista, nombre, edad, añosExp,codCentro, salBase,incentivo, salarioNeto, tel);
+          vecN[i]= objN;
+          System.out.println(" registro actualizado"+ objN.toString());
+        }
+        else
+         {
+          vecN[i]= objN;
+         }
+         i++;
+        }
+       if(sw ==false)
+        {
+          System.out.println("El Cliente No existe");
+        }  
+     objArchivos.cerrarModoLectura();
+     }catch (Exception e)
+      {
+       System.out.println("***Archivo leido y cerrado correctamente*****");
+       objArchivos.cerrarModoLectura();
+      }
+     grabarActualizacion(vecN, objArchivos);
+    }
+  else 
+   {
+    System.out.println("No existe un archivo para actualizar");
+   }
+ 
+ }
+  
+  public void grabarActualizacion(Nutricionista[] vecN, Archivo objArchCopy) 
+     {   
+        Nutricionista objN;
+        objArchCopy.cerrarModoLectura(); // se cierra el archivo que se encuentra en modo lectura
+        objArchCopy.eliminaArchivo("DatosClientes.txt"); // se elimina el archivo original
+        for(int i = 0; i<vecN.length;i++)
+        {
+         objArchCopy.abrirModoEscritura("DatosClientes.txt");
+         objN = vecN[i];
+         String texto = "";
+         texto = objN.estructuraRegistro();//con este metodo se da la estructura al registro
+         objArchCopy.escribir(texto); //se graba o escribe o imprime el registro fisicamente en el archivo 
+         objArchCopy.cerrarModoEscritura();
+        }
+        
+    } //fin  Grabar Actualización del Cliente    */
+
+}
+
+
+
+
+package pkgNutricion;
+
+import java.util.Scanner;
+
+public class Centro 
+{
+    private int codCentro;
+    private String nombre, direccion, telefono;
+    private String correoElectronico;
+    private double recaudo, presupuesto;
+    private int personal;
+    private double nomina;
+
+    public Centro()
+    {
+        
+    }
+    
+    public Centro(int codCentro, String nombre, String direccion, String telefono, String correoElectronico, double presupuesto, int personal) 
+    {
+        this.codCentro = codCentro;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.correoElectronico = correoElectronico;
+        this.presupuesto = presupuesto;
+        this.personal = personal;
+        this.nomina = nomina;
+    }
+    
+    public Centro datosCentro()
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("asigne un código al centro de nutricion : ");
+        codCentro = sc.nextInt();
+        System.out.println("ingrese el nombre del centro: ");
+        nombre = sc.next();
+        System.out.println("ingrese la direccion: ");
+        direccion = sc.next();
+        System.out.println("ingrese el teléfono: ");
+        telefono = sc.next();
+        System.out.println("ingrese el correo electrónico: ");
+        correoElectronico = sc.next();
+        System.out.println("ingrese la cantidad de personal del centro: ");
+        personal = sc.nextInt();
+        Centro c =  new Centro(codCentro,nombre,direccion,telefono,correoElectronico, presupuesto, personal);
+        return c;  
+        
+    }
+    
+    public void centroMayorPersonal(Centro[] vecCentro)
+    {
+        
+    }        
+          
+    public void verCentros(Centro[] vecCentro)
+    {
+        
+    }          
+    
+    public void calculoRecaudo(Centro[] vecCentro, Cliente[] vecCliente,  int codigo)
+    {
+    /* este método debe calcular el total de recaudo de un centro de salud puntual
+    debe recibiir el vector cliente para que sea recorrido e identifique según el 
+    código que de busqueda ingresado cuanto dinero se recaudo por la atención de clientes y se le asigne a ese objeto
+    el valor de la variable recaudo del centro (objeto) identificado por el código */  
+    }   
+    
+
+    public void calculoNomina(Centro[] vecCentro, Nutricionista[] vecNutricionista, int codigo)
+    {
+    /* este método debe calcular el total de nomina por nutricionista de un centro de salud puntual
+    debe recibiir el vector nutricionista para que sea recorrido e identifique según el 
+    código que de busqueda ingresado cuanto dinero se le pagan a los nutricionista y el 
+    valor hallado debe ser asignado a la variable nomina del centro de salud del objeto Centro(objeto) identificado por el
+    código */
+     
+    }       
+    
+    
+    public int getCodCentro() 
+    {
+        return codCentro;
+    }
+
+    public void setCodCentro(int codCentro) 
+    {
+        this.codCentro = codCentro;
+    }
+
+    public String getNombre() 
+    {
+        return nombre;
+    }
+
+    public void setNombre(String nombre)
+    {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() 
+    {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) 
+    {
+        this.direccion = direccion;
+    }
+
+    public String getTelefono() 
+    {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) 
+    {
+        this.telefono = telefono;
+    }
+
+    public String getCorreoElectronico() 
+    {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico)
+    {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public double getRecaudo() 
+    {
+        return recaudo;
+    }
+
+    public void setRecaudo(double recaudo)
+    {
+        this.recaudo = recaudo;
+    }
+
+    public int getPersonal()
+    {
+        return personal;
+    }
+
+    public void setPersonal(int personal)
+    {
+        this.personal = personal;
+    }
+
+    public double getNomina() 
+    {
+        return nomina;
+    }
+
+    public void setNomina(double nomina) 
+    {
+        this.nomina = nomina;
+    }
+
+    @Override
+    public String toString() {
+        return "Centro{" + "codCentro= " + codCentro + ", nombre= " + nombre + ", direccion= " + direccion + ", telefono= " + telefono + ", correoElectronico= " + correoElectronico + ", recaudo= " + recaudo + ", personal= " + personal + ", nomina= " + nomina + '}';
+    }
+    
+    
+    
+}
+
+
+
+
+
+
+
+package pkgNutricion;
+import static pkgNutricion.Validacion.*;
+import java.util.Scanner;
+public class Cliente extends Persona
+{
+  private double estatura, pago;
+  private double peso[] = new double[3];
+  private String estado = "";
+  private String idNutricionista;
+  private int idCliente, estrato;
+  
+  public Cliente()
+  {
+      
+  }
+
+    public Cliente(int idCliente,String nombre, int edad, int codCentro, String idNutricionista, double estatura, String estado, int estrato, double pago, double[] peso) {
+        super(nombre, edad,codCentro);
+        this.estatura = estatura;
+        this.estado = estado;
+        this.idNutricionista = idNutricionista;
+        this.idCliente = idCliente;
+        this.estrato = estrato;
+        this.pago = pago;
+        this.peso = peso;
+    }
+    
+ 
+   /*
+    se pasan como parámetros los vectores de Nutricionista y Centro para poder
+    validar la existencia de estos cuando se asignan al cliente 
+    */
+  public Cliente datosCliente(int idCliente) 
+  {
+   nombre = leerString("ingrese el nombre del cliente: ");
+   edad = leerEdad("ingrese la edad del cliente: ");
+   codCentro = leerEntero("ingrese el código de centro al cual está asignado: ");
+   estrato = leerEstrato("ingrese el estrato social del cliente: ");
+   estatura = leerEstatura("ingrese la estatura del cliente: ");
+   idNutricionista = leerIdNutricionista("ingrese el codigo del nutricionista: ");
+   for(int i = 0; i < peso.length; i++)
+   {
+    peso[i] = leerPeso("ingrese el peso del cliente en el mes #"+ (i+1) +" : ");
+   } 
+   calcularIMC();
+   calculoPago();
+   Cliente cl =  new Cliente(idCliente,nombre, edad, codCentro, idNutricionista, estatura,estado,estrato,pago,peso);
+   return cl;   
+  }
+  
+   public void calculoPago()
+   {
+        switch (estrato) 
+          {
+            case 1:
+            case 2:
+                pago = 50000;
+                break;
+            case 3:
+            case 4:
+                pago = 70000;
+                break;
+            case 5:
+                pago = 80000;
+                break;
+            case 6:
+                pago = 100000;
+                break;
+            default:
+                System.out.println("Estrato no válido ");
+          }
+   }
+  
+      public void calcularIMC() 
+      {
+        System.out.println("peso en posición 2: " + peso[2]);
+        double imc = peso[2] / (estatura * estatura);
+        if (imc < 18.5) 
+        {
+            estado = "Bajo peso";
+        } 
+        else if (imc < 25) 
+        {
+            estado = "Peso normal";
+        } 
+        else if (imc < 30) 
+        {
+            estado = "Sobrepeso";
+        } 
+        else 
+        {
+            estado = "Obesidad";
+        }
+    }
+
+    public double getEstatura() 
+    {
+        return estatura;
+    }
+
+    public void setEstatura(double estatura)
+    {
+        this.estatura = estatura;
+    }
+
+    public double[] getPeso() 
+    {
+        return peso;
+    }
+
+    public void setPeso(double[] peso) 
+    {
+        this.peso = peso;
+    }
+
+    public String getNombre() 
+    {
+        return nombre;
+    }
+
+    public void setNombre(String nombre)
+    {
+        this.nombre = nombre;
+    }
+
+    public String getEstado()
+    {
+        return estado;
+    }
+
+    public void setEstado(String estado) 
+    {
+        this.estado = estado;
+    }
+
+   public int getEdad() 
+   {
+        return edad;
+   }
+
+    public void setEdad(int edad)
+    {
+        this.edad = edad;
+    }
+
+    public String getIdNutricionista()
+    {
+        return idNutricionista;
+    }
+
+    public void setIdNutricionista(String idNutricionista) 
+    {
+        this.idNutricionista = idNutricionista;
+    }
+
+    public int getIdCliente() 
+    {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente)
+    {
+        this.idCliente = idCliente;
+    }
+
+    public int getEstrato() 
+    {
+        return estrato;
+    }
+
+    public void setEstrato(int estrato)
+    {
+        this.estrato = estrato;
+    }
+
+    public double getPago() 
+    {
+        return pago;
+    }
+
+    public void setPago(double pago) 
+    {
+        this.pago = pago;
+    }
+    
+
+    @Override
+    public String toString() 
+    {
+        return "Cliente {idCliente ="+ idCliente+ "nombre = " + nombre + " codCentro = "+ codCentro + " idNutricionista = "+ idNutricionista + " estrato = " + estrato + " estatura= " + estatura + ", estado= " + estado + ", edad= " + edad + ", pago = " + pago + 
+                "peso = [seg 1: "+ peso[0] + "][seg 2: "+ peso[1]+"]seg 3: " + peso[2] +"]}";
+    }
+    
+    public String estructuraRegistro() 
+    {
+      return (getIdCliente()+"|"+getNombre()+"|"+ getEdad()+"|"+getCodCentro()+"|"+getIdNutricionista()+"|"+getEstrato()+"|"+getEstatura()+
+                "|"+getEstado()+"|"+getPago()+"|"+getPeso()[0]+"|"+getPeso()[1]+"|"+getPeso()[2]);
+    }
+        
+            
+        
+}
+
+
+
+
+package pkgNutricion;
+
+import java.util.Scanner;
+
+public class Nutricionista extends Persona
+{
+    private double salBase, incentivo, salarioNeto;
+    private String codNutricionista;
+    private int añosExp;
+    private String tel;
+    
+    public Nutricionista()
+    {
+        
+    }
+
+    public Nutricionista(String codNutricionista,String nombre, int edad, int añosExp, int codCentro, double salBase, double incentivo, double salarioNeto, String tel) {
+        super(nombre, edad, codCentro);
+        this.salBase = salBase;
+        this.incentivo = incentivo;
+        this.salarioNeto = salarioNeto;
+        this.codNutricionista = codNutricionista;
+        this.añosExp = añosExp;
+        this.tel = tel;
+    }
+    
+    public Nutricionista datosNutricionista(String codNutricionista)
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("ingrese el nombre del Nutricionista: ");
+        nombre = sc.next();
+        System.out.println("ingrese la edad del Nutricionista: ");
+        edad= sc.nextInt();
+        System.out.println("ingrese los años de experiencia: ");
+        añosExp= sc.nextInt();
+        System.out.println("ingrese el código de centro al cual está asignado: ");
+        codCentro = sc.nextInt();
+        System.out.println("ingrese el Salario del Nutricionista: ");
+        salBase = sc.nextDouble();
+        System.out.println("ingrese el numero de telefono del Nutricionista:  ");
+        tel = sc.next();
+        incentivo = calcularIncentivo();
+        salarioNeto = calcularSalario();
+        Nutricionista nutri =  new Nutricionista(codNutricionista,nombre, edad, añosExp, codCentro, salBase, incentivo,salarioNeto,tel);
+        return nutri;   
+    }
+  
+    public double calcularIncentivo()
+    {
+        double inc = 0;  
+        if (añosExp <= 3) 
+         {
+          inc = salBase * 0.20;
+         } 
+         else if (añosExp > 3 && añosExp < 5) 
+               {
+                inc = salBase * 0.30;
+               }
+         else if (añosExp >= 5 && añosExp < 8) 
+               {
+                inc = salBase * 0.40;
+               }
+         else if (añosExp >= 8) 
+               {
+                inc = salBase * 0.50;
+               } 
+
+       return inc;  
+    }
+  
+  public double calcularSalario()
+  {
+   double sal = 0;
+   sal = salBase + incentivo;
+   return sal;   
+  }
+  
+  public void verNutricionistas(Nutricionista[] vecNutri)
+  {
+      
+  }
+      
+  public void nutricionistaSolicitado(Nutricionista[] vecNutri,Cliente[] vecCliente)
+  {
+      
+  }        
+  public void nutricionistaExperimentado(Nutricionista[] vecNutri)
+  {
+      
+  }        
+  public void salarioTotalNutricionistas(Nutricionista[] vecNutri)
+  {
+      
+  }        
+
+    public double getSalBase() 
+    {
+        return salBase;
+    }
+
+    public void setSalBase(double salBase) 
+    {
+        this.salBase = salBase;
+    }
+
+    public double getIncentivo() 
+    {
+        return incentivo;
+    }
+
+    public void setIncentivo(double incentivo) 
+    {
+        this.incentivo = incentivo;
+    }
+
+    public double getSalarioNeto() 
+    {
+        return salarioNeto;
+    }
+
+    public void setSalarioNeto(double salarioNeto) 
+    {
+        this.salarioNeto = salarioNeto;
+    }
+
+    public String getCodNutricionista() 
+    {
+        return codNutricionista;
+    }
+
+    public void setCodNutricionista(String codNutricionista) 
+    {
+        this.codNutricionista = codNutricionista;
+    }
+
+    public int getAñosExp() 
+    {
+        return añosExp;
+    }
+
+    public void setAñosExp(int añosExp) 
+    {
+        this.añosExp = añosExp;
+    }
+
+    public String getTel() 
+    {
+        return tel;
+    }
+
+    public void setTel(String tel) 
+    {
+        this.tel = tel;
+    }
+
+    public String getNombre() 
+    {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) 
+    {
+        this.nombre = nombre;
+    }
+
+    public int getEdad() 
+    {
+        return edad;
+    }
+
+    public void setEdad(int edad) 
+    {
+        this.edad = edad;
+    }
+
+    public int getCodCentro() 
+    {
+        return codCentro;
+    }
+
+    public void setCodCentro(int codCentro) 
+    {
+        this.codCentro = codCentro;
+    }
+  
+   /*
+    anotación en Java que se utiliza para indicar que un método en una clase hija 
+    está sobrescribiendo un método en su clase padre
+    */
+
+    @Override
+    public String toString() 
+    {
+      return " Nutricionista{" + " -codNutricionista = " +codNutricionista+ " -Nombre = "+nombre+" -Edad = "+edad+" -Codigo Centro = "+codCentro+" -Años de Experiencia = "+añosExp+" -Salario Base =" + salBase + ", incentivo=" + incentivo + ", salarioNeto=" + salarioNeto + "tel=" + tel + '}';
+    }
+    
+    /*El método toString es un método heredado de la clase Object, que es la clase base de todas las clases en Java. 
+      Por lo tanto, siempre existe un método toString en la clase padre, incluso si no lo ves explícitamente en tu clase.*/
+  
+    public String estructuraRegistro() 
+    {
+      return (getCodNutricionista()+"|"+getNombre()+"|"+ getEdad()+"|"+getCodCentro()+"|"+getAñosExp()+"|"+getSalBase()+"|"+getIncentivo()+
+                "|"+getSalarioNeto()+"|"+getTel());
+    }
+}
+
+
+
+
+package pkgNutricion;
+
+
+public class Persona 
+{
+ 
+  
+    String nombre;
+    int edad;
+    int codCentro;
+
+    public Persona()
+    {
+        
+    }       
+    public Persona(String nombre, int edad, int codCentro) 
+    {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.codCentro = codCentro;
+    }
+
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public int getCodCentro() {
+        return codCentro;
+    }
+
+    public void setCodCentro(int codCentro) {
+        this.codCentro = codCentro;
+    }
+    
+    
+}
+
+
+
+package pkgNutricion;
+
+import java.util.Scanner;
+
+public class Validacion 
+{
+     public static int leerEntero(String mensaje) // me permite validar el idCliente 
+	{
+             Scanner sc = new Scanner (System.in);
+		int num = 0;
+                do{
+		try
+		{
+	      	   System.out.println(mensaje);
+                   num = sc.nextInt();
+                   if(num<=0)
+                     System.out.println("ERROR, el Numero debe ser mayor que cero");
+                 }
+		catch (Exception e)
+		{
+		  System.out.println("ERROR:"+ e);
+		}
+                 }while(num<=0);
+		return num;
+	}
+       public static int leerAñosExp(String mensaje) // me permite validar el idCliente 
+	{
+             Scanner sc = new Scanner (System.in);
+		int num = 0;
+                do{
+		try
+		{
+	      	   System.out.println(mensaje);
+                   num = sc.nextInt();
+                   if(num<0)
+                     System.out.println("ERROR, el Numero debe ser mayor que cero");
+                 }
+		catch (Exception e)
+		{
+		  System.out.println("ERROR:"+ e);
+		}
+                 }while(num<0);
+		return num;
+	}
+              public static int leerPersonalCentro(String mensaje) // me permite validar el idCliente 
+	{
+             Scanner sc = new Scanner (System.in);
+		int num = 0;
+                do{
+		try
+		{
+	      	   System.out.println(mensaje);
+                   num = sc.nextInt();
+                   if(num<5)
+                     System.out.println("ERROR, el Numero debe ser mayor que 5");
+                 }
+		catch (Exception e)
+		{
+		  System.out.println("ERROR:"+ e);
+		}
+                 }while(num<5);
+		return num;
+	}
+          public static double leerSalarioBase(String mensaje) // me permite validar el idCliente 
+	{
+             Scanner sc = new Scanner (System.in);
+		double num = 0;
+                do{
+		try
+		{
+	      	   System.out.println(mensaje);
+                   num = sc.nextDouble();
+                   if(num<=1500000)
+                     System.out.println("ERROR, el Salario debe ser mayor que 1500000");
+                 }
+		catch (Exception e)
+		{
+		  System.out.println("ERROR:"+ e);
+		}
+                 }while(num<=1500000);
+		return num;
+	}
+
+        public static int leerEdad(String mensaje)
+        {
+          Scanner sc = new Scanner (System.in);
+		int num = 0;
+                do{
+		try
+		{
+	      	   System.out.println(mensaje);
+                   num = sc.nextInt();
+                   if((num<18)||(num>100))
+                     System.out.println("ERROR, la edad debe estar entre 18 y 100");
+                 }
+		catch (Exception e)
+		{
+		  System.out.println("ERROR:"+ e);
+		}
+                 }while((num<18)||(num>100));
+		return num;  
+        }      
+        
+       public static double leerEstatura(String mensaje)
+        {
+          Scanner sc = new Scanner (System.in);
+		double num = 0;
+                do{
+		try
+		{
+	      	   System.out.println(mensaje);
+                   num = sc.nextDouble();
+                   if((num<0.5)||(num>2.5))
+                     System.out.println("ERROR, la edad estatura debe ser superior a 0.5 y 2.5");
+                 }
+		catch (Exception e)
+		{
+		  System.out.println("ERROR:"+ e);
+		}
+                 }while((num<0.5)||(num>2.5));
+		return num;  
+        }      
+        
+/* Crear método que permita validar el codigo del centro, leyendo el archivo de 
+   Centro de Salud*/
+       public static String leerIdNutricionista(String mensaje)
+       {
+         Scanner sc = new Scanner (System.in);
+		String idNutri="";
+                do
+                {
+		  try
+		   {
+	      	     System.out.println(mensaje);
+                     idNutri= sc.next();
+                     if(!validarCadenaIdNutricionista(idNutri))
+                        System.out.println("ERROR, la edad estatura debe ser superior a 0.5 y 2.5");
+                   }
+		  catch (Exception e)
+		   {
+		     System.out.println("ERROR:"+ e);
+		   }
+                 }while(!validarCadenaIdNutricionista(idNutri));
+		return idNutri;    
+           
+       }
+       
+        public static boolean validarCadenaIdNutricionista(String idNutri)
+        {
+            if(idNutri.length()>6)
+            {   
+             return false;
+            } 
+          return idNutri.matches("^[a-zA-Z0-9]*$");
+        }
+        
+/* crear método que permita validar el IDNutricionista recorriendo el archivo
+   de Nutricionista */
+        
+        
+	public static double leerPeso(String mensaje)
+	{
+            Scanner sc = new Scanner (System.in);
+	    double num = 0;
+             do
+             {
+	      try
+	       {
+	      	 System.out.println(mensaje);
+                 num = sc.nextDouble();
+                 if((num < 0) ||(num>300))
+                   System.out.println("ERROR, el Numero debe estar entre 0 y 300");
+               }
+		catch (Exception e)
+		{
+		 System.out.println("ERROR: " + e);
+		}
+            }while((num < 0) ||(num>300));
+                
+		return num;
+	}
+        
+        public static String leerString(String mensaje)
+	{
+	  String cadena= "";
+          Scanner sc = new Scanner (System.in);
+          do
+          {
+	   try
+	    {
+              System.out.println(mensaje);
+              cadena = sc.nextLine();
+	       if(cadena.equals(""))
+                  System.out.println("ERROR: debe ingresar informacion");
+            }
+	    catch (Exception e)
+	      {
+		System.out.println("ERROR: " + e);
+	      }
+           }while(cadena.equals(""));
+	 return cadena;
+	}
+    
+        public static int leerEstrato(String mensaje)
+	{
+          Scanner sc = new Scanner(System.in);
+	  int num = 0;
+           do
+           {
+	    try
+	     {
+              System.out.println(mensaje);
+              num = sc.nextInt();
+	      if(num<=0||num>=7)
+                System.out.println("ERROR, el Numero ingresado no pertenece a un estrato");
+             }
+	     catch (Exception e)
+	      {
+               System.out.println("ERROR - OJO  " );
+	      }
+           }while(num<=0||num>=7);
+	 return num;
+        }
+        public static String leerTelefono(String mensaje)
+        {
+          Scanner sc = new Scanner(System.in);
+          String tel ="";
+          do
+          {
+            try
+            {
+             System.out.println(mensaje);
+             tel = sc.next();   
+             if(tel != null && tel.matches("\\d+"))
+              return tel;   
+            }   
+             catch(Exception e)
+             {   
+                System.out.println("ERROR - OJO  " );       
+             }
+           }while(!((tel != null) && (tel.matches("\\d+"))));             
+         return tel;    
+        }       
+    
+}
+
+
+
+
+
+
